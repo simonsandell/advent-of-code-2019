@@ -7,9 +7,9 @@ class Image:
     def __str__(self):
 
         blockchar = '█'
-        transparent = ' '
-        black = '\033[94m' + blockchar + '\033[0m'
-        white = '\033[92m' + blockchar + '\033[0m'
+        transparent = 'T'
+        black = '\033[90m' + blockchar + '\033[0m'
+        white = '\033[97m' + blockchar + '\033[0m'
 
         out = ''
         for line in range(self.height):
