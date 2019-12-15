@@ -24,6 +24,8 @@ class Intcode:
 
         self.input_method = input
         self.output_method = self.output.append
+        
+        self.killswitch = False
 
     def increase_memory(self, factor):
         self.memory.extend((len(self.memory)*(factor-1))*[0])
@@ -169,5 +171,7 @@ class Intcode:
 
             if halt:
                 return False
+            if self.killswitch:
+                break
 
         return True

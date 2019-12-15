@@ -26,8 +26,34 @@ class Hallway:
 
     def __init__(self):
         self.panels = {}
-        self.steps = {}
+        self.steps = {(0,0):0}
         self.stepcount = 0
+
+        self.oxygen = (-1, -1)
+
+        self.oxygen_edge = []
+
+    def get_adjacent_positions(self, pos):
+        return [
+                (pos[0]+1, pos[1]),
+                (pos[0]-1, pos[1]),
+                (pos[0], pos[1]+1),
+                (pos[0], pos[1]-1),
+                ]
+
+
+    def get_adjacent_hallways(self, pos):
+        adj = self.get_adjacent_positions(pos)
+        r = []
+        for a in adj:
+            c = self.get_color(a)
+            if c == 3:
+                r.append(a)
+        return r
+
+        
+
+
 
     def get_color(self, pos):
         if pos in self.panels:
@@ -35,10 +61,12 @@ class Hallway:
         self.panels[pos] = 2
         return 2
 
-    def set_color(self, pos, color):
+    def get_step(self, pos):
+        return self.steps[pos]
+
+    def set_color(self, pos, color, paint=False):
         prev_color = self.get_color(pos)
         self.panels[pos] = color
-        time.sleep(0.0001)
         if color == 0:
             self.stepcount += 1
             if prev_color == 2:
@@ -46,8 +74,12 @@ class Hallway:
             if prev_color == 3:
                 self.stepcount = self.steps[pos]
         if color == 4:
+            self.oxygen = pos
             self.stepcount += 1
-        print(self)
+            self.steps[pos] = self.stepcount
+        if paint:
+            print(self)
+            time.sleep(0.05)
 
 
 
