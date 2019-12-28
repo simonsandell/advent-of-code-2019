@@ -18,16 +18,12 @@ class Tiles:
     def __init__(self):
         self.panels = {}
 
-        self.one_count = 0
-
     def get_color(self, pos):
         if not pos in self.panels:
             raise Exception("nocolor")
         return self.panels[pos]
 
     def set_color(self, pos, color):
-        if color == '1':
-            self.one_count += 1
         self.panels[pos] = color
 
 
@@ -44,8 +40,8 @@ class Tiles:
         #time.sleep(0.01)
         max_x = 0
         max_y = 0
-        min_x = 0
-        min_y = 0
+        min_x = 99999999999999999
+        min_y = 99999999999999999
         for pos in self.panels:
             if pos[0] > max_x:
                 max_x = pos[0]
@@ -63,5 +59,4 @@ class Tiles:
                 else:
                     out += purple
             out += '\n'
-        out += 'One count: ' + str(self.one_count) + '\n'
         return out

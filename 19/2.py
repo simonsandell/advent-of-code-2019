@@ -25,14 +25,24 @@ if __name__ == '__main__':
         loop.run_until_complete(comp.run())
         return comp.output_queue.get_nowait()
 
-    spacemap = Tiles.Tiles()
-    positions = []
-    nones = 0
-    for x in range(50):
-        for y in range(50):
-            compout = str(query_comp((x, y)))
-            spacemap.panels[(x, y)] = compout
-            if compout == '1':
-                nones += 1
-    print(spacemap)
-    print(nones)
+
+    def find_top_border(pos):
+        c = query_comp(pos)
+        while c != 1:
+            pos = (pos[0], pos[1] + 1)
+            c = query_comp(pos)
+        return pos
+
+    def spacecraft_fits(pos):
+        otherpos = (pos[0] - 99, pos[1] + 99)
+        if query_comp(otherpos) == 0:
+            return False
+        return True
+    pos = (100, 0)
+    borderpos = find_top_border(pos)
+    while not spacecraft_fits(borderpos):
+        pos = (borderpos[0] + 1, borderpos[1])
+        borderpos = find_top_border(pos)
+    t = (borderpos[0] - 99, borderpos[1])
+    ans = (t[0])*10000 + t[1]
+    print(ans)
