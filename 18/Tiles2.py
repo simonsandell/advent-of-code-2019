@@ -229,7 +229,7 @@ class Tiles:
             self.open_doors()
         else:
             self.update_doors(held_keys)
-        state = (start, self.encode_keys(held_keys))
+        state = (start, self.encode_keys(held_keys), no_doors)
         if state in self.adj_cache:
             return self.adj_cache[state]
         steps = 0

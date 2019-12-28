@@ -17,7 +17,6 @@ if __name__ == '__main__':
 
     target_num_keys = len(tiles.keys)
     lengths = set()
-    print(tiles)
 
     cache = {}
 
@@ -47,6 +46,7 @@ if __name__ == '__main__':
                 elif cache[state] > w + adjkeys[adj]:
                     cache[state] = w + adjkeys[adj]
                     queue.put((npos, nkeys, w + adjkeys[adj]))
+                print(len(nkeys))
     print(lengths)
     print(len(lengths))
     print(min(lengths))
